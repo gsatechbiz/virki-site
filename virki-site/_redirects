@@ -1,0 +1,4 @@
+# Cloudflare Pages redirects
+# PT-BR é a raiz — sem redirect necessário
+/en   /en/   301
+/es   /es/   301

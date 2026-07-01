@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIRKI Special Solutions</title>
+<meta name="description" content="VIRKI advises on structured credit, strategic M&A and NPL sales to convert illiquid assets into real liquidity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --virki-white:      #FAFAF8;
+    --virki-surface:    #F4F1EC;
+    --virki-border:     #E8E4DD;
+    --virki-muted:      #9A9690;
+    --virki-body:       #3D3C3A;
+    --virki-ink:        #181714;
+
+    --virki-bronze-50:  #F5EDD8;
+    --virki-bronze-200: #E8D0A0;
+    --virki-bronze-400: #C4A265;
+    --virki-bronze-600: #9E7035;
+    --virki-bronze-800: #6B4A1F;
+
+    --font-display: 'Source Serif 4', serif;
+    --font-body:    'Inter', sans-serif;
+
+    --border-default: 0.5px solid var(--virki-border);
+    --border-action:  1.5px solid var(--virki-bronze-600);
+    --border-accent:  2px solid var(--virki-bronze-400);
+  }
+
+  html { scroll-behavior: smooth; background: var(--virki-white); }
+
+  body {
+    background: var(--virki-white);
+    color: var(--virki-body);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  section, footer { scroll-margin-top: 90px; }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  :focus-visible { outline: 2px solid var(--virki-bronze-600); outline-offset: 3px; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 3rem; }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: var(--border-default);
+  }
+
+  .nav-logo img { height: 34px; width: auto; }
+
+  .nav-links {
+    display: flex;
+    gap: 2.4rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--virki-muted);
+    transition: color 0.25s;
+  }
+
+  .nav-links a:hover { color: var(--virki-bronze-600); }
+
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 2rem;
+  }
+
+  .lang-switcher a {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--virki-muted);
+    transition: color 0.25s;
+    padding: 0.2rem 0.35rem;
+  }
+
+  .lang-switcher a:hover { color: var(--virki-bronze-600); }
+  .lang-switcher a.active { color: var(--virki-bronze-600); border-bottom: 1px solid var(--virki-bronze-400); }
+  .lang-switcher span { color: var(--virki-border); font-size: 0.65rem; }
+
+  .nav-right { display: flex; align-items: center; }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 34px;
+    height: 34px;
+    font-size: 1.4rem;
+    line-height: 34px;
+    text-align: center;
+    color: var(--virki-ink);
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+
+  .nav-mobile-panel { display: none; }
+
+  .btn-primary, .btn-secondary, .btn-ghost {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    font-family: var(--font-body);
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 0;
+    white-space: nowrap;
+    transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.15s;
+  }
+
+  .btn-primary { background: var(--virki-bronze-600); color: var(--virki-white); font-weight: 500; border: none; }
+  .btn-primary:hover { background: var(--virki-bronze-800); }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-secondary { background: transparent; color: var(--virki-bronze-600); font-weight: 500; border: var(--border-action); }
+  .btn-secondary:hover { background: var(--virki-bronze-50); }
+  .btn-secondary:active { transform: scale(0.98); }
+
+  .btn-ghost { background: transparent; color: var(--virki-muted); font-weight: 400; border: var(--border-default); }
+  .btn-ghost:hover { color: var(--virki-bronze-600); border-color: var(--virki-bronze-400); }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--virki-bronze-600);
+    margin-bottom: 1.4rem;
+  }
+  .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--virki-bronze-400); }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.18;
+    color: var(--virki-ink);
+    font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+    margin-bottom: 1.3rem;
+  }
+  .section-title em { font-style: italic; font-weight: 300; color: var(--virki-bronze-600); line-height: 1.25; display: inline-block; padding-bottom: 0.08em; }
+
+  .body-text { font-size: 0.97rem; color: var(--virki-body); line-height: 1.8; }
+  .body-text + .body-text { margin-top: 1.1rem; }
+
+  .caption { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--virki-muted); }
+
+  .div-acento { width: 100%; height: 1px; background: linear-gradient(to right, transparent, var(--virki-bronze-400) 40%, var(--virki-bronze-400) 60%, transparent); opacity: 0.55; }
+  .div-neutro  { width: 100%; height: 0.5px; background: var(--virki-border); }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  .media-frame { position: relative; overflow: hidden; border: var(--border-default); background: var(--virki-surface); }
+  .media-frame img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(55%) contrast(1.05) brightness(0.98); }
+  .media-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(155deg, rgba(158,112,53,0.28), rgba(24,23,20,0.08) 65%); mix-blend-mode: multiply; pointer-events: none; }
+
+  #hero { min-height: 100dvh; display: flex; align-items: center; padding: 6rem 3rem 3rem; }
+
+  .hero-grid { width: 100%; max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 4.5rem; align-items: center; }
+
+  .hero-headline { font-family: var(--font-display); font-size: clamp(2.6rem, 4.6vw, 4rem); font-weight: 300; line-height: 1.16; color: var(--virki-ink); max-width: 22ch; }
+  .hero-headline em { font-style: italic; color: var(--virki-bronze-600); display: inline-block; padding-bottom: 0.08em; }
+
+  .hero-sub { margin-top: 1.6rem; max-width: 38ch; font-size: 0.95rem; color: var(--virki-muted); line-height: 1.8; }
+
+  .hero-stats { margin-top: 2.6rem; display: flex; gap: 2.6rem; }
+  .hero-stat-value { font-family: var(--font-display); font-size: 2.1rem; font-weight: 300; color: var(--virki-bronze-400); line-height: 1; display: block; }
+  .hero-stat-label { margin-top: 0.4rem; }
+  .hero-cta { margin-top: 2.6rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero-text, .hero-visual { min-width: 0; }
+  .hero-visual .media-frame { aspect-ratio: 4 / 5; }
+
+  #about { padding: 7rem 0; background: var(--virki-white); }
+  .about-grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 4rem; }
+  .about-image .media-frame { aspect-ratio: 3 / 4; }
+  .about-meta { margin-top: 1.6rem; display: flex; gap: 2.2rem; }
+  .about-meta-value { font-family: var(--font-display); font-size: 1.5rem; font-weight: 300; color: var(--virki-bronze-600); line-height: 1; }
+  .about-meta-label { margin-top: 0.35rem; }
+  .about-content { border-left: var(--border-default); padding-left: 3rem; }
+  .about-quote { margin: 1.8rem 0; padding: 0.2rem 0 1.6rem 1.6rem; border-left: var(--border-accent); font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.55rem); font-weight: 300; font-style: italic; line-height: 1.45; color: var(--virki-ink); }
+  .about-quote strong { font-style: normal; font-weight: 400; color: var(--virki-bronze-600); }
+
+  .image-band { width: 100%; height: clamp(220px, 28vw, 380px); }
+  .image-band img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(55%) contrast(1.05) brightness(0.95); }
+  .image-band-wrap { position: relative; }
+  .image-band-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(155deg, rgba(158,112,53,0.3), rgba(24,23,20,0.1) 70%); mix-blend-mode: multiply; }
+
+  #solutions { padding: 7rem 0; background: var(--virki-white); }
+  .solutions-header { max-width: 640px; margin-bottom: 3.2rem; }
+  .solutions-bento { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .solution-card { background: var(--virki-white); border: var(--border-default); border-left: var(--border-accent); padding: 1.8rem 2rem; transition: background 0.3s, border-color 0.3s; }
+  .solution-card:hover { background: var(--virki-surface); }
+  .solution-card.featured { grid-column: 1 / -1; padding: 2.2rem 2.6rem; }
+  .card-eyebrow { display: flex; align-items: center; gap: 0.6rem; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--virki-bronze-600); margin-bottom: 0.9rem; }
+  .card-eyebrow i { font-size: 1rem; color: var(--virki-bronze-400); }
+  .card-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; color: var(--virki-ink); margin-bottom: 0.7rem; }
+  .card-body { font-size: 0.88rem; color: var(--virki-muted); line-height: 1.75; max-width: 52ch; }
+
+  #process { padding: 7rem 0; background: var(--virki-surface); }
+  .step-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--virki-border); margin-top: 3.2rem; }
+  .step-item { background: var(--virki-white); padding: 1.8rem 1.6rem; }
+  .step-num { font-family: var(--font-display); font-size: 2.4rem; font-weight: 300; color: var(--virki-bronze-200); line-height: 1; margin-bottom: 0.8rem; }
+  .step-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; color: var(--virki-ink); margin-bottom: 0.5rem; }
+  .step-body { font-size: 0.85rem; color: var(--virki-muted); line-height: 1.7; }
+
+  #track-record { padding: 7rem 0; background: var(--virki-white); }
+  .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 3.2rem 0 4rem; }
+  .metric-cell { background: var(--virki-surface); border: var(--border-default); padding: 1.2rem 1.3rem; }
+  .metric-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 300; color: var(--virki-bronze-400); display: block; }
+  .metric-label { margin-top: 0.4rem; display: block; }
+
+  .sectors-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--virki-body); margin-bottom: 1.1rem; }
+  .sectors-list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .sector-tag { padding: 0.4rem 0.9rem; border: var(--border-default); border-color: var(--virki-bronze-400); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--virki-bronze-600); transition: background 0.25s; }
+  .sector-tag:hover { background: var(--virki-bronze-50); }
+
+  #contact { padding: 8rem 0; background: var(--virki-surface); text-align: center; }
+  .contact-title { font-family: var(--font-display); font-size: clamp(2.1rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.16; margin-bottom: 1.2rem; }
+  .contact-title em { font-style: italic; color: var(--virki-bronze-600); display: inline-block; padding-bottom: 0.08em; }
+  .contact-sub { font-size: 0.95rem; color: var(--virki-muted); max-width: 460px; margin: 0 auto 2.4rem; line-height: 1.8; }
+  .contact-meta { margin-top: 3.2rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+  .contact-meta-item { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+  .contact-meta-value { font-size: 0.9rem; color: var(--virki-ink); }
+
+  footer { background: var(--virki-white); padding: 2.2rem 3rem; display: flex; justify-content: space-between; align-items: center; border-top: var(--border-default); }
+  .footer-brand { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; letter-spacing: 0.1em; color: var(--virki-bronze-600); }
+  .footer-brand span { display: block; font-family: var(--font-body); font-weight: 400; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--virki-muted); margin-top: 0.25rem; }
+  .footer-copy { font-size: 0.74rem; color: var(--virki-muted); letter-spacing: 0.02em; }
+
+  @media (max-width: 1024px) {
+    .wrap, nav { padding-left: 1.8rem; padding-right: 1.8rem; }
+    #hero { padding-left: 1.8rem; padding-right: 1.8rem; }
+    .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 2.8rem; }
+    .hero-visual { order: -1; }
+    .hero-visual .media-frame { aspect-ratio: 16 / 9; }
+    .hero-headline, .hero-sub { max-width: none; }
+    .about-grid { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+    .about-content { border-left: none; padding-left: 0; border-top: var(--border-default); padding-top: 2.2rem; }
+    section, #hero, #about, #solutions, #process, #track-record, #contact { padding-left: 1.8rem; padding-right: 1.8rem; }
+    #solutions, #process, #track-record, #contact { padding-top: 5rem; padding-bottom: 5rem; }
+    .step-grid { grid-template-columns: repeat(2, 1fr); }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    .lang-switcher { margin-left: 0.5rem; }
+    .nav-mobile-panel.open { display: block; position: fixed; top: 64px; left: 0; right: 0; background: var(--virki-white); border-bottom: var(--border-default); padding: 1.4rem 1.8rem 1.8rem; z-index: 99; }
+    .nav-mobile-panel.open ul { list-style: none; display: flex; flex-direction: column; gap: 1.1rem; }
+    .nav-mobile-panel.open a { text-decoration: none; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--virki-body); }
+    .nav-mobile-panel.open .mobile-lang { display: flex; gap: 0.8rem; padding-top: 0.8rem; border-top: var(--border-default); margin-top: 0.4rem; }
+    .nav-mobile-panel.open .mobile-lang a { font-size: 0.76rem; color: var(--virki-muted); }
+    .nav-mobile-panel.open .mobile-lang a.active { color: var(--virki-bronze-600); }
+    .solutions-bento { grid-template-columns: 1fr; }
+    .solution-card.featured { grid-column: 1; }
+  }
+
+  @media (max-width: 640px) {
+    .hero-headline { font-size: 2.1rem; }
+    .hero-stats { gap: 1.6rem; flex-wrap: wrap; }
+    .step-grid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-meta { gap: 1.8rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .lang-switcher { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo"><img src="../assets/logo-virki-claro.png" alt="VIRKI Special Solutions"></a>
+  <ul class="nav-links">
+    <li><a href="#about">The Firm</a></li>
+    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#process">Methodology</a></li>
+    <li><a href="#track-record">Track Record</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <a href="/">PT</a>
+      <span>|</span>
+      <a href="/en/" class="active">EN</a>
+      <span>|</span>
+      <a href="/es/">ES</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+  </div>
+</nav>
+<div class="nav-mobile-panel" id="navMobilePanel">
+  <ul>
+    <li><a href="#about">The Firm</a></li>
+    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#process">Methodology</a></li>
+    <li><a href="#track-record">Track Record</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="mobile-lang">
+      <a href="/">PT</a>
+      <a href="/en/" class="active">EN</a>
+      <a href="/es/">ES</a>
+    </li>
+  </ul>
+</div>
+
+<section id="hero">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <div class="eyebrow reveal">Special Solutions</div>
+      <h1 class="hero-headline reveal">Structured credit, M&amp;A and NPLs &mdash; liquidity where conventional markets fall short.</h1>
+      <p class="hero-sub reveal">Structured credit, strategic M&amp;A and NPL sales for those who cannot afford to wait for the traditional market.</p>
+
+      <div class="hero-stats reveal">
+        <div class="hero-stat">
+          <span class="hero-stat-value">+USD 1B</span>
+          <span class="caption hero-stat-label">In transactions closed</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">20+</span>
+          <span class="caption hero-stat-label">Years of experience</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">3</span>
+          <span class="caption hero-stat-label">Practice areas</span>
+        </div>
+      </div>
+
+      <div class="hero-cta reveal">
+        <a href="#contact" class="btn-primary">Start a conversation</a>
+        <a href="#solutions" class="btn-secondary">Our solutions</a>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="media-frame">
+        <img src="https://picsum.photos/seed/virki-sp-skyline-dusk/900/1125" alt="São Paulo skyline at dusk" loading="eager">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-acento"></div>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-image reveal">
+      <div class="media-frame">
+        <img src="https://picsum.photos/seed/virki-boardroom-light/700/930" alt="Corporate boardroom" loading="lazy">
+      </div>
+      <div class="about-meta">
+        <div>
+          <span class="about-meta-value">São Paulo</span>
+          <span class="caption about-meta-label">Operations base</span>
+        </div>
+        <div>
+          <span class="about-meta-value">National</span>
+          <span class="caption about-meta-label">Coverage</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-content reveal">
+      <h2 class="section-title">Specialists in situations<br><em>outside the norm.</em></h2>
+      <p class="body-text">VIRKI was built to operate where conventional solutions do not reach. Our team brings together professionals from investment banks, credit managers and M&amp;A boutiques, combining strategic perspective with technical execution in transactions that demand precision and speed.</p>
+      <p class="body-text">Our edge is the ability to structure from scratch: we identify the right instrument, map the relevant investors and run the process from diagnosis to close.</p>
+
+      <blockquote class="about-quote">"Liquidity is not a product. It is the result of a <strong>well-designed structure.</strong>"</blockquote>
+
+      <p class="body-text">We work on advisory mandates that require confidentiality, speed and deep knowledge of the Brazilian financial market. We understand both the asset originator and the investor who needs to price the risk. VIRKI creates value precisely at that intersection.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-neutro"></div>
+
+<div class="image-band-wrap reveal">
+  <div class="image-band">
+    <img src="https://picsum.photos/seed/virki-port-infrastructure/1600/480" alt="Port infrastructure aerial view" loading="lazy">
+  </div>
+</div>
+
+<div class="div-neutro"></div>
+
+<section id="solutions">
+  <div class="wrap">
+    <div class="solutions-header reveal">
+      <h2 class="section-title">Three fronts. One<br><em>goal: liquidity.</em></h2>
+      <p class="body-text">Every mandate is built to specification. We do not offer off-the-shelf solutions. We deliver precise diagnosis and execution driven by the client's outcome.</p>
+    </div>
+
+    <div class="solutions-bento">
+      <div class="solution-card featured reveal">
+        <div class="card-eyebrow"><i class="ph ph-bank"></i> Structured Credit</div>
+        <h3 class="card-title">Structured Credit Facilities</h3>
+        <p class="card-body">We design structured debt instruments (FIDCs, CRIs, CRAs, debentures and custom transactions) for companies that need capital without dilution. We advise on every stage, from structuring to issuance.</p>
+      </div>
+
+      <div class="solution-card reveal">
+        <div class="card-eyebrow"><i class="ph ph-handshake"></i> M&amp;A</div>
+        <h3 class="card-title">M&amp;A and Asset Monetization</h3>
+        <p class="card-body">We run sale, merger and acquisition processes in special situations: companies under restructuring, non-core assets, spin-offs and strategic divestitures. We map qualified buyers and follow through to close.</p>
+      </div>
+
+      <div class="solution-card reveal">
+        <div class="card-eyebrow"><i class="ph ph-trend-down"></i> NPLs</div>
+        <h3 class="card-title">NPL Portfolio Sales</h3>
+        <p class="card-body">We advise creditors on the assignment of performing and non-performing loan portfolios. We price the portfolio, prepare the data room and run the process to close, with value recovery as the priority.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-neutro"></div>
+
+<section id="process">
+  <div class="wrap">
+    <h2 class="section-title reveal">From diagnosis to <em>close.</em></h2>
+
+    <div class="step-grid">
+      <div class="step-item reveal">
+        <div class="step-num">I</div>
+        <h3 class="step-title">Diagnosis</h3>
+        <p class="step-body">We map the asset, the corporate structure, liabilities involved and regulatory constraints. We define the right instrument before any move in the market.</p>
+      </div>
+      <div class="step-item reveal">
+        <div class="step-num">II</div>
+        <h3 class="step-title">Structuring</h3>
+        <p class="step-body">We design the transaction with full legal, financial and tax documentation. Every structure is built to maximize the client's return and minimize unnecessary risk exposure.</p>
+      </div>
+      <div class="step-item reveal">
+        <div class="step-num">III</div>
+        <h3 class="step-title">Distribution</h3>
+        <p class="step-body">We access our network of institutional investors, family offices, FIDCs and specialized NPL buyers. We run the process with discretion and efficiency, preserving the negotiated value.</p>
+      </div>
+      <div class="step-item reveal">
+        <div class="step-num">IV</div>
+        <h3 class="step-title">Close</h3>
+        <p class="step-body">We accompany due diligence, final negotiation and signing. The mandate does not end with the offer. It ends with funds in the account and the asset transferred.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="track-record">
+  <div class="wrap">
+    <h2 class="section-title reveal">Numbers that support the thesis.</h2>
+
+    <div class="metrics-grid reveal">
+      <div class="metric-cell">
+        <span class="metric-num">+USD 1B</span>
+        <span class="caption metric-label">Transaction volume</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-num">20+</span>
+        <span class="caption metric-label">Years in financial markets</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-num">3</span>
+        <span class="caption metric-label">Product verticals</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-num">100%</span>
+        <span class="caption metric-label">Mandates taken to close</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="sectors-label">Sectors</p>
+      <div class="sectors-list">
+        <span class="sector-tag">Agribusiness</span>
+        <span class="sector-tag">Real Estate</span>
+        <span class="sector-tag">Infrastructure</span>
+        <span class="sector-tag">Logistics &amp; Transport</span>
+        <span class="sector-tag">Retail</span>
+        <span class="sector-tag">Healthcare</span>
+        <span class="sector-tag">Energy</span>
+        <span class="sector-tag">Sanitation</span>
+        <span class="sector-tag">Restructuring</span>
+        <span class="sector-tag">Structured Credit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-neutro"></div>
+
+<section id="contact">
+  <div class="wrap">
+    <h2 class="contact-title reveal">Have an illiquid asset?<br><em>Let's talk.</em></h2>
+    <p class="contact-sub reveal">Every transaction begins with a conversation. Present your case, with or without complete documentation. Confidentiality is guaranteed from the first contact.</p>
+    <div class="reveal">
+      <a href="mailto:contato@virki.com.br" class="btn-primary">contato@virki.com.br</a>
+    </div>
+    <div class="contact-meta reveal">
+      <div class="contact-meta-item">
+        <span class="caption">Location</span>
+        <span class="contact-meta-value">São Paulo, SP</span>
+      </div>
+      <div class="contact-meta-item">
+        <span class="caption">Meetings</span>
+        <span class="contact-meta-value">By appointment</span>
+      </div>
+      <div class="contact-meta-item">
+        <span class="caption">Languages</span>
+        <span class="contact-meta-value">Português · English</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">VIRKI<span>Special Solutions</span></div>
+  <div class="footer-copy">&copy; 2026 VIRKI Special Solutions. All rights reserved.</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.hero-stats, .solutions-bento, .step-grid, .metrics-grid').forEach(grid => {
+    grid.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = `${i * 0.08}s`; });
+  });
+
+  const navToggle = document.getElementById('navToggle');
+  const navPanel = document.getElementById('navMobilePanel');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navPanel.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  navPanel.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navPanel.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+</body>
+</html>
